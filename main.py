@@ -1,9 +1,15 @@
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
 import joblib
-
+from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  #  ["http://localhost:3000"]
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # Load model and vectorizer
 model = joblib.load("sentiment_model.pkl")
 vectorizer = joblib.load("vectorizer.pkl")
